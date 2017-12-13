@@ -1,0 +1,69 @@
+@import 'variables';
+@import 'vendor/normalize.css';
+@import 'vendor/main.css';
+
+body {
+  background-color: $body_bg;
+  color: #fff;
+  font-family: $font_family;
+  padding: $body_padding;
+  width: 100vw;
+  height: 100vh;
+}
+.tiles-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+}
+.tile {
+  perspective: 1000px;
+  height: 200px;
+  width: 200px;
+  margin: 0 20px 40px;
+}
+.flipper {
+  transition: all .5s ease;
+  transform-style: preserve-3d;
+  position: relative;
+  height: 100%;
+  border: 2px solid #a9a9a9;
+}
+.tile.open, .tile.match-found {
+  .flipper {
+    transform: rotateY(180deg);
+  }
+}
+.front, .back {
+  backface-visibility: hidden;
+  background: #dbdbdb;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.front {
+  z-index: 2;
+}
+.back {
+  height: 100%;
+  text-align: center;
+  transform: rotateY(180deg);
+  img {
+    display: inline-block;
+    margin-left: -5px;
+    max-height: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+  &:before {
+    content: '';
+    width: 0;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
