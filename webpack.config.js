@@ -27,7 +27,7 @@ module.exports = {
   context: __dirname,
   devtool: 'cheap-module-source-map',
   entry: {
-    main: path.resolve(__dirname, 'app/js/index.js'),
+    main: path.resolve(__dirname, 'app/js/App.js'),
     style: path.resolve(__dirname, 'app/css/base.scss')
   },
   output: {

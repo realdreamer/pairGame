@@ -6,7 +6,7 @@ export default class View {
     this.tilesContainer = document.querySelector('#tiles');
   }
   loadTiles (tilesList) {
-    this.tilesContainer.innerHTML = this.template.tilesList(tilesList);
+    this.tilesContainer.innerHTML = this.template(tilesList);
   }
   bindEventsToTiles (handler) {
     this.tiles = document.querySelectorAll('.tile');

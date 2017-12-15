@@ -7,7 +7,6 @@ export default class Controller {
     this.tiles = tiles;
     this.game = game;
     this.openTile = this.openTile.bind(this);
-    this.init();
   }
   init () {
     let tilesCards;
@@ -28,8 +27,7 @@ export default class Controller {
     let targetTileEl = targetEl.closest('.tile');
     targetTileEl.classList.add('open');
     let targetTileElId = targetTileEl.dataset.id;
-    const isExistingOpenedTile = _.find(this.game.openTiles, ( tile ) => ( tile.id === targetTileElId ));
-    if ( isExistingOpenedTile ) {
+    if ( this.game.isAlreadyOpened(targetTileElId) ) {
       return;
     }
     this.notifyGameIsTileOpened(this.tiles.findTile(targetTileElId));
@@ -40,16 +38,14 @@ export default class Controller {
     this.game.notifyTileIsOpened(tileId);
   }
   countNumberOfClicks () {
-    console.log(this.store.getSessionStorage('numberOfClicks'));
     let numberOfClicks = parseInt(this.store.getSessionStorage('numberOfClicks')) || 0;
     this.store.setSessionStorage('numberOfClicks', numberOfClicks+=1);
-    console.log(numberOfClicks);
   }
   isTilePair () {
     let pairIds= (_.map(this.game.openTiles, 'id'));
     if ( this.game.isItComparable() ) {
       if ( this.game.isPairTiles() ) {
-        this.store.update(pairIds);
+        this.game.update(pairIds);
         this.isGameOver();
       }
       else {
@@ -60,9 +56,6 @@ export default class Controller {
         });
       }
       this.game.resetPairTiles();
-    }
-    else {
-      console.log('Odd Pair');
     }
   }
   isGameOver () {

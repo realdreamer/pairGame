@@ -26,20 +26,4 @@ export default class Store {
   clearSessionStorage () {
     this.sessionStorage.clear();
   }
-
-  update (ids, callback) {
-    const id = ids;
-    const tiles = JSON.parse(this.getSessionStorage('cards'));
-    const newTiles = tiles.map( (tile) => {
-                        if (id.indexOf(tile.id) > -1) {
-                          tile['pair'] = true;
-                        }
-                        return tile;
-                      });
-    this.setSessionStorage('cards', JSON.stringify(newTiles));
-
-    if ( callback && typeof callback === 'function' ) {
-      callback();
-    }
-  }
 }
