@@ -7,7 +7,7 @@ export default class Tiles {
   constructor (row, column) {
     this.row = row;
     this.column = column;
-    this.cards = [];
+    this.tiles = [];
   }
   generateTiles () {
     let counter = 1, index;
@@ -21,20 +21,20 @@ export default class Tiles {
           name: tileDictionary[index].name,
           imageUrl: tileDictionary[index].img
         };
-        this.cards.push(card);
+        this.tiles.push(card);
         counter++;
       }
     }
-    return this.cards = this.shuffleTiles();
+    return this.tiles = this.shuffleTiles();
   }
   shuffleTiles () {
-    return _.shuffle(this.cards);
+    return _.shuffle(this.tiles);
   }
   setTilesFromStorage (tiles) {
-    this.cards = tiles;
+    this.tiles = tiles;
   }
   findTile (id) {
-    return _.find(this.cards, function ( card ) {
+    return _.find(this.tiles, function ( card ) {
       return card.id === id;
     });
   }

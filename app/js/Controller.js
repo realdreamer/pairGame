@@ -9,16 +9,16 @@ export default class Controller {
     this.openTile = this.openTile.bind(this);
   }
   init () {
-    let tilesCards;
-    if ( this.store.getSessionStorage('cards') === null) {
+    let tiles;
+    if ( this.store.getSessionStorage('tiles') === null) {
       this.tiles.generateTiles();
-      this.store.setSessionStorage('cards', JSON.stringify(this.tiles.cards));
+      this.store.setSessionStorage('tiles', JSON.stringify(this.tiles.tiles));
     }
     else {
-      tilesCards = JSON.parse(this.store.getSessionStorage('cards'));
-      this.tiles.setTilesFromStorage(tilesCards);
+      tiles = JSON.parse(this.store.getSessionStorage('tiles'));
+      this.tiles.setTilesFromStorage(tiles);
     }
-    this.view.loadTiles(JSON.parse(this.store.getSessionStorage('cards')));
+    this.view.loadTiles(JSON.parse(this.store.getSessionStorage('tiles')));
     this.view.bindEventsToTiles(this.openTile);
     this.isGameOver();
   }
@@ -61,7 +61,7 @@ export default class Controller {
   isGameOver () {
     if ( this.game.isGameOver() ) {
       alert('*** Game Over *** \nNumber Of Clicks : ', this.store.getSessionStorage('numberOfClicks'));
-      this.store.clearProp('cards');
+      this.store.clearProp('tiles');
       this.store.clearProp('numberOfClicks');
     }
   }

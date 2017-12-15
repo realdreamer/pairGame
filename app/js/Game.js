@@ -7,14 +7,14 @@ export default class Game {
   }
   update (ids, callback) {
     const id = ids;
-    const tiles = JSON.parse(this.store.getSessionStorage('cards'));
+    const tiles = JSON.parse(this.store.getSessionStorage('tiles'));
     const newTiles = tiles.map( (tile) => {
                         if (id.indexOf(tile.id) > -1) {
                           tile['pair'] = true;
                         }
                         return tile;
                       });
-    this.store.setSessionStorage('cards', JSON.stringify(newTiles));
+    this.store.setSessionStorage('tiles', JSON.stringify(newTiles));
 
     if ( callback && typeof callback === 'function' ) {
       callback();
@@ -38,14 +38,14 @@ export default class Game {
     this.openTiles = [];
   }
   isAllTilesAreOpened () {
-    let totalTiles = JSON.parse(this.store.getSessionStorage('cards'));
+    let totalTiles = JSON.parse(this.store.getSessionStorage('tiles'));
     return totalTiles.every( tile => ( tile.pair ));
   }
   currentOpenedTiles (tileId) {
     return _.find(this.openTiles, tile => tile.id === tileId);
   }
   isPairedOpenedTile (tileId) {
-    let totalTiles = JSON.parse(this.store.getSessionStorage('cards'));
+    let totalTiles = JSON.parse(this.store.getSessionStorage('tiles'));
     return _.find(totalTiles, tile => tile.id === tileId && tile.pair);
   }
   isAlreadyOpened ( tileId ) {
